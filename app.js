@@ -5,13 +5,17 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const app = express();
 const _ = require("lodash");
+require("dotenv").config();
 
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/todolistDB", {useNewUrlParser: true, useFindAndModify: false});
+const auth = process.env.AUTH
+
+
+mongoose.connect("mongodb+srv://admin-milos:"+ auth +"@cluster0.efguv.mongodb.net/todolistDB", {useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true});
 
 const itemsSchema = {
   name: String
